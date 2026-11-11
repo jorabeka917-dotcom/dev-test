@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEV TEST — Programming Quiz</title>
+<style>
+:root{--bg:#080b12;--panel:#101622;--panel2:#151e2d;--line:#253247;--muted:#91a0b8;--text:#edf3ff;--blue:#5b8cff;--cyan:#45d6e8;--green:#38d996;--red:#ff667d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#14294a 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,Segoe UI,Arial,sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;border:0}.wrap{max-width:1120px;margin:auto;padding:24px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:42px}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:1.8px;font-size:20px}.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;color:#06101c;font-weight:1000}.tag{font-size:11px;color:var(--cyan);border:1px solid #28536b;padding:6px 10px;border-radius:20px;letter-spacing:1px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:stretch}.panel{background:linear-gradient(145deg,#121b2a,#0d131e);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 18px 55px #0005}.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:2px}.hero h1{font-size:clamp(36px,6vw,62px);line-height:1.03;margin:14px 0}.hero h1 span{background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;color:transparent}.sub{color:var(--muted);max-width:560px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}.stat{background:#0a111d;border:1px solid var(--line);padding:14px;border-radius:14px}.stat b{display:block;font-size:23px}.stat small{color:var(--muted)}
+.side h3{margin:0 0 18px}.sideitem{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);color:#c9d5e8}.sideitem:last-child{border:0}.sideitem span{color:var(--muted)}
+.sectionhead{display:flex;justify-content:space-between;align-items:end;margin:34px 0 16px}.sectionhead h2{margin:0;font-size:22px}.sectionhead p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.topic{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:19px;transition:.2s}.topic:hover{transform:translateY(-3px);border-color:#4774c8}.topic .num{font-size:11px;color:var(--cyan);letter-spacing:1px}.topic h3{margin:8px 0 5px;font-size:16px}.topic p{color:var(--muted);font-size:12px;min-height:36px;margin:0 0 15px}.topicfoot{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted)}.pill{background:#19283d;padding:5px 9px;border-radius:20px;color:#a9c5ff}
+.primary,.secondary{padding:12px 18px;border-radius:12px;font-weight:800}.primary{background:linear-gradient(100deg,var(--blue),#4aafff);color:#06101c;box-shadow:0 8px 22px #397cff33}.secondary{background:#1a2638;color:#dce8fa;border:1px solid var(--line)}.secondary:disabled{opacity:.45;cursor:default}.primary:disabled{opacity:.5;cursor:default}.primary:hover:not(:disabled){filter:brightness(1.1)}.full{width:100%;margin-top:18px}
+code{background:#0a111d;padding:2px 6px;border-radius:6px;color:var(--cyan);font-family:Consolas,Menlo,monospace;font-size:.92em}
+.screen{display:none}.screen.active{display:block}.quiztop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.timer{font-weight:900;color:var(--cyan);font-variant-numeric:tabular-nums;background:#102436;padding:10px 14px;border-radius:12px}.progress{height:7px;background:#202c3e;border-radius:20px;overflow:hidden;margin:14px 0 24px}.progress>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));width:0;transition:.2s}.qmeta{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:1px}.question{font-size:clamp(20px,3vw,28px);font-weight:800;margin:12px 0 24px}.answers{display:grid;gap:11px}.answer{width:100%;text-align:left;padding:15px 17px;border:1px solid var(--line);border-radius:13px;background:#111a28;color:var(--text);display:flex;gap:13px;align-items:center}.answer .letter{width:30px;height:30px;flex:none;border-radius:9px;background:#202e43;display:grid;place-items:center;font-weight:900;color:#b8d0ff}.answer:hover:not(:disabled){border-color:var(--blue);background:#17243a}.answer.correct{border-color:var(--green);background:#103126}.answer.wrong{border-color:var(--red);background:#351b27}.answer:disabled{cursor:default}.feedback{margin-top:15px;padding:12px 14px;border-radius:12px;display:none}.feedback.show{display:block}.feedback.good{background:#103126;color:#8df0c3}.feedback.bad{background:#351b27;color:#ffadba}.quizactions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px}
+.result{text-align:center;padding:38px 20px}.score{font-size:58px;font-weight:1000;background:linear-gradient(90deg,var(--cyan),#9ab5ff);-webkit-background-clip:text;color:transparent}.resultstats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px 0}.resultstats span{padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#101a28}.muted{color:var(--muted)}.notice{margin-top:20px;padding:13px 15px;border:1px solid #5b4b28;background:#2a2416;color:#e9d39b;border-radius:12px;font-size:12px}
+footer{text-align:center;color:#64738b;font-size:12px;padding:35px 0 10px}
+@media(max-width:760px){.wrap{padding:16px}.top{margin-bottom:25px}.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.panel{padding:21px}.sectionhead{align-items:start;flex-direction:column;gap:8px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:10px}.stat b{font-size:19px}.tag{display:none}.quiztop{align-items:flex-start}.quiztop .secondary{padding:9px 11px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="brand"><div class="logo">&lt;/&gt;</div> DEV TEST</div><div class="tag">PROGRAMMING KNOWLEDGE PLATFORM</div></header>
+
+<main id="home" class="screen active">
+ <section class="hero">
+  <div class="panel">
+   <div class="eyebrow">YOUR PERSONAL CODING ARENA</div>
+   <h1>Bilimingni<br><span>sinab ko‘r.</span></h1>
+   <p class="sub">Dasturlash bo‘yicha bilimlaringni mustahkamla. Mavzuni tanla, testni yech va natijangni darhol bilib ol.</p>
+   <div class="stats"><div class="stat"><b>200</b><small>Rejadagi savollar</small></div><div class="stat"><b>09</b><small>Mavzular</small></div><div class="stat"><b>60</b><small>Maks. daqiqa / test</small></div></div>
+   <button class="primary full" onclick="startAll()">Barcha mavjud savollarni boshlash →</button>
+  </div>
+  <div class="panel side"><h3>Platforma imkoniyatlari</h3><div class="sideitem">Darhol tekshirish <span>●</span></div><div class="sideitem">Osondan qiyinga <span>↗</span></div><div class="sideitem">Qayta test ishlash <span>↻</span></div><div class="sideitem">Telefon va kompyuter <span>✓</span></div><div class="sideitem">Login talab qilinmaydi <span>✓</span></div><div class="notice">Hozircha namuna savollar joylangan. 200 ta yakuniy savol dars materiallaring asosida to‘ldiriladi.</div></div>
+ </section>
+ <div class="sectionhead"><div><h2>O‘quv mavzulari</h2><p>Test ishlash uchun mavzuni tanla</p></div><span class="pill">9 ta mavzu</span></div>
+ <section class="grid" id="topics"></section>
+ <footer>DEV TEST © 2026 · Learn. Practice. Improve.</footer>
+</main>
+
+<section id="quiz" class="screen">
+ <div class="quiztop"><button class="secondary" onclick="goHome()">← Mavzularga qaytish</button><div class="timer" id="timer">60:00</div></div>
+ <div class="panel">
+  <div class="qmeta" id="qmeta">SAVOL 1 / 10</div><div class="progress"><div id="bar"></div></div>
+  <div class="question" id="question"></div><div class="answers" id="answers"></div><div id="feedback" class="feedback"></div>
+  <div class="quizactions"><span class="muted" id="counter">0 ta javob</span><button class="primary" id="next" disabled onclick="nextQuestion()">Keyingi savol →</button></div>
+ </div>
+</section>
+
+<section id="result" class="screen"><div class="panel result"><div class="eyebrow">TEST YAKUNLANDI</div><h1>Natijang</h1><div class="score" id="score">0%</div><p class="muted" id="resultline"></p><div class="resultstats" id="resultstats"></div><button class="primary" onclick="retry()">Qayta ishlash ↻</button> <button class="secondary" onclick="goHome()">Bosh sahifa</button></div></section>
+</div>
+<script>
+const topics=[
+"7 ta zarur narsa","C++ dasturlash asoslari","Algoritmik til tushunchalari","Kiritish, chiqarish va o‘zlashtirish","Butun va haqiqiy sonlar","Butun sonlarga oid masalalar","C++ tilida ifodalar","Mantiqiy ma’lumotlar","Mantiqiy amallar"
+];
+// Namuna savollar. t = mavzu raqami (0 dan), d = qiyinlik (1 oson, 2 o'rta, 3 murakkab)
+const bank=[
+{t:1,q:"C++ dasturida buyruqlarni bajarish odatda qaysi funksiyadan boshlanadi?",a:["start()","main()","run()","begin()"],c:1,d:1},
+{t:1,q:"C++ kodida satr oxiriga qo‘yiladigan nuqtali vergul nimani bildiradi?",a:["Funksiya boshlanishini","Izoh tugashini","Buyruq tugashini","Dastur tugashini"],c:2,d:1},
+{t:1,q:"C++ da standart kiritish-chiqarish oqimlari uchun qaysi sarlavha fayli ishlatiladi?",a:["<iostream>","<string>","<math>","<stdio>"],c:0,d:2},
+{t:3,q:"Klaviaturadan qiymat kiritish uchun odatda qaysi operator ishlatiladi?",a:["cout","cin","print","input"],c:1,d:1},
+{t:3,q:"Ma’lumotni ekranga chiqarish uchun qaysi oqim ishlatiladi?",a:["cin","read","cout","scan"],c:2,d:1},
+{t:3,q:"C++ da o‘zgaruvchiga qiymat berish operatori qaysi?",a:["==","=","!=","<="],c:1,d:1},
+{t:4,q:"C++ da butun sonlarni saqlash uchun qaysi tur mos?",a:["int","double","char","bool"],c:0,d:1},
+{t:4,q:"Kasrli sonlarni yuqoriroq aniqlikda saqlash uchun qaysi tur ishlatiladi?",a:["int","bool","double","char"],c:2,d:1},
+{t:4,q:"`int a = 7 / 2;` ifodasidan a qiymati nechaga teng bo‘ladi?",a:["3.5","4","3","2"],c:2,d:2},
+{t:5,q:"`int a = 12; int b = 5;` bo‘lsa, `a % b` natijasi nima?",a:["2","2.4","3","0"],c:0,d:2},
+{t:5,q:"`int x = 4; x = x + 3;` bajarilgach x nechaga teng?",a:["4","3","7","12"],c:2,d:1},
+{t:6,q:"C++ da qavs ichidagi amal odatda qachon bajariladi?",a:["Eng oxirida","Boshqa amallardan oldin","Faqat tenglikdan keyin","Hech qachon"],c:1,d:1},
+{t:6,q:"`2 + 3 * 4` ifodasining qiymati nechaga teng?",a:["20","14","24","11"],c:1,d:2},
+{t:7,q:"Mantiqiy qiymatlarni ifodalovchi C++ turi qaysi?",a:["bool","int","float","string"],c:0,d:1},
+{t:7,q:"`bool active = false;` ifodasida active qanday qiymat olgan?",a:["0.0","true","false","null"],c:2,d:1},
+{t:8,q:"Mantiqiy AND amali C++ da qaysi belgi bilan yoziladi?",a:["||","!","&&","&="],c:2,d:2},
+{t:8,q:"Mantiqiy OR amali qaysi belgi bilan yoziladi?",a:["&&","||","!=",">>"],c:1,d:2},
+{t:8,q:"`!(5 > 2)` ifodasining natijasi nima?",a:["true","false","5","2"],c:1,d:2}
+];
+const LEVELS=["","OSON","O‘RTA","MURAKKAB"];
+const AUTO_OK=1000, AUTO_BAD=2200; // avtomatik o'tish kutish vaqti (ms)
+let active=[],index=0,correct=0,answered=0,locked=false,seconds=3600,tick=null,autoT=null,lastTopic=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const fmtCode=s=>esc(s).replace(/`([^`]+)`/g,"<code>$1</code>");
+const byLevel=arr=>[...arr].sort((a,b)=>a.d-b.d);
+
+function renderTopics(){ $("topics").innerHTML=topics.map((name,i)=>{let n=bank.filter(x=>x.t===i).length;return `<article class="topic"><div class="num">MODULE 0${i+1}</div><h3>${esc(name)}</h3><p>${i===0?"Dasturlashga kirish va tayyorgarlik":"Mavzu bo‘yicha bilimlarni tekshirish"}</p><div class="topicfoot"><span>${n? n+" ta namuna savol":"Material kutilmoqda"}</span><button class="secondary" style="padding:7px 11px" onclick="startTopic(${i})" ${n?"":"disabled"}>${n?"Boshlash":"Tez orada"}</button></div></article>`}).join("")}
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");window.scrollTo(0,0)}
+function startTopic(t){lastTopic=t;active=byLevel(bank.filter(x=>x.t===t));begin()}
+function startAll(){lastTopic=null;active=byLevel(bank);begin()}
+function begin(){
+ if(!active.length)return;
+ clearTimeout(autoT);clearInterval(tick);
+ index=0;correct=0;answered=0;
+ seconds=Math.min(3600,Math.ceil(active.length*90)); // har savolga 1.5 daqiqa, maksimum 60 daqiqa
+ show("quiz");
+ $("timer").textContent=fmt(seconds);
+ tick=setInterval(()=>{seconds--;$("timer").textContent=fmt(Math.max(seconds,0));if(seconds<=0)finish()},1000);
+ renderQuestion();
+}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function renderQuestion(){
+ locked=false;let q=active[index];
+ $("qmeta").textContent=`SAVOL ${index+1} / ${active.length} · ${LEVELS[q.d]||"OSON"}`;
+ $("bar").style.width=(answered/active.length*100)+"%";
+ $("question").innerHTML=fmtCode(q.q);
+ $("answers").innerHTML=q.a.map((a,i)=>`<button class="answer" onclick="choose(${i})"><span class="letter">${"ABCD"[i]}</span><span>${esc(a)}</span></button>`).join("");
+ $("feedback").className="feedback";$("feedback").textContent="";
+ $("next").disabled=true;
+ $("next").textContent=index===active.length-1?"Natijani ko‘rish":"Keyingi savol →";
+ $("counter").textContent=`${answered} ta javob berildi`;
+}
+function choose(i){
+ if(locked)return;locked=true;answered++;
+ let q=active[index],ok=i===q.c;if(ok)correct++;
+ document.querySelectorAll(".answer").forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct");else if(j===i)b.classList.add("wrong")});
+ let f=$("feedback");
+ f.textContent=ok?"✓ To‘g‘ri javob!":`✕ Noto‘g‘ri. To‘g‘ri javob: ${"ABCD"[q.c]} — ${q.a[q.c]}`;
+ f.className="feedback show "+(ok?"good":"bad");
+ $("bar").style.width=(answered/active.length*100)+"%";
+ $("next").disabled=false;
+ $("counter").textContent=`${answered} ta javob berildi`;
+ clearTimeout(autoT);
+ autoT=setTimeout(nextQuestion,ok?AUTO_OK:AUTO_BAD);
+}
+function nextQuestion(){
+ clearTimeout(autoT);
+ if(!locked)return;
+ if(index<active.length-1){index++;renderQuestion()}else finish();
+}
+function finish(){
+ clearInterval(tick);clearTimeout(autoT);
+ let total=active.length,pct=Math.round(correct/total*100),skipped=total-answered;
+ $("score").textContent=pct+"%";
+ $("resultline").textContent=pct>=80?"Ajoyib natija! Davom et.":pct>=50?"Yaxshi urinish. Yana mashq qil!":"Mashqni davom ettir — albatta yaxshilanadi.";
+ $("resultstats").innerHTML=`<span>✓ To‘g‘ri: <b>${correct}</b></span><span>✕ Noto‘g‘ri: <b>${answered-correct}</b></span>`+(skipped>0?`<span>Javobsiz: <b>${skipped}</b></span>`:"")+`<span>Jami: <b>${total}</b></span>`;
+ show("result");
+}
+function retry(){if(lastTopic===null)startAll();else startTopic(lastTopic)}
+function goHome(){clearInterval(tick);clearTimeout(autoT);show("home")}
+renderTopics();
+</script>
+</body></html>
